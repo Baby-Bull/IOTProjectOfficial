@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <title>IT Technologies | Solution</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="styles/solution.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/cufon-yui.js" type="text/javascript"></script>
+  <script src="js/cufon-replace.js" type="text/javascript"></script>
+  <script src="js/Myriad_Pro_300.font.js" type="text/javascript"></script>
+</head>
+
+<body id="page5">
+  <div id="background"></div>
+  <div class="tail-top">
+    <div class="tail-bottom">
+      <div class="body-bg">
+        <!-- HEADER -->
+        <div id="header">
+          <div class="extra"><img src="images/header-img.jpg" alt="" /></div>
+          <div class="row-1">
+            <div class="fleft"><a href="#"><img src="images/logo.png" alt="" /></a></div>
+          </div>
+          <div class="row-2">
+            <ul>
+              <li class="m1"><a href="index.html">Home</a></li>
+              <li class="m2"><a href="temprature.html">Temprature</a></li>
+              <li class="m3"><a href="humidity.html">Humidity</a></li>
+              <li class="m4"><a href="solution.html" class="active">Solution</a></li>
+              <li class="m5"><a href="user.html">User</a></li>
+              <li class="m6"><a href="contact.html">About Us</a></li>
+            </ul>
+          </div>
+          <div class="row-3">
+            <h3 style="font-size: 80px; font-weight: 600; color: white;"><span>The best cooling solution</span></h3>
+            <form action="#" method="post" id="search-form">
+              <fieldset>
+                <div><span>
+                    <input type="text" value="Enter keyword here"
+                      onfocus="if(this.value=='Enter keyword here'){this.value=''}"
+                      onblur="if(this.value==''){this.value='Enter keyword here'}" />
+                  </span><a href="#"><img src="images/button.gif" alt="" /></a></div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <!-- CONTENT -->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="notice" style="    text-align: center;
+              width: 100%;
+              background: #484848;
+              margin: 100px 0 0 0;
+              border: 2px #ffc82e solid;
+              color: yellow;
+              border-radius: 10px;">
+                <p style="font-size: 30px; font-weight: 700;">Tổng quan</p>
+                <p>Trạng thái hiện tại của hệ thống</p>
+                <strong style="
+                display: flex;
+                margin: 0 0 0 50px;
+                font-size: 20px;
+            "><i style=" margin-right: 30px; font-size: 30px;" class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                  <p>Thiết bị đang an toàn</p>
+                </strong>
+                <p style="text-align: justify;
+                margin: 0 0 10px 50px;
+                font-size: 18px;"><i style="font-size: 25px; margin-right: 22px;" class="fa fa-commenting"
+                    aria-hidden="true"></i>Hint: Hệ thống mặc định sẽ tự động làm mát khi cần thiết</p>
+              </div>
+
+              <div class="setting" style=" background: #3a4344;
+              margin: 100px 0 0 0;
+              color: yellow;
+              padding: 30px 30px 0px 0px;
+              border-radius: 5px;
+              border: 3px #ff4700 solid;
+              box-shadow: 0px 7px 20px 10px black;">
+                <div class="manual">
+                  <strong style=" 
+                  display: flex;
+                  margin: 0 0 0 50px;
+                  font-size: 20px;"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Điều khiển thiết bị thủ công</strong>
+                  <form id="formSetTime" style="float: left; width: 100%;">
+                    <p>Chọn thời gian hẹn tắt thiết bị: </p>
+                    <input id="timeToStop" list="browsers" name="browser">
+                    <datalist id="browsers">
+                      <option value="30s">
+                      <option value="5m">
+                      <option value="10m">
+                        <optgroup label="Thoi gian dai">
+                          <option value="1d"></option>
+                          <option value="3d"></option>
+                    </datalist>
+                    <input type="submit">
+                  </form>
+                  <strong style="    
+                  float: left;
+                  font-size: 20px;
+                  width: 60%;
+                  margin: 50px 80px 0px 30px;"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Bật thiết bị làm mát </strong>
+                  <button id="but_stop" onclick="document.getElementById('id01').style.display='block'"><i style="margin-right: 10px;" class="fa fa-check-circle" aria-hidden="true"></i>Start</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4" style="background: gray;margin: 100px 0 0 0;">
+              <strong><i class="fa fa-lightbulb-o" aria-hidden="true"></i>Gợi ý từ hệ thống:</strong>
+              <ul id="list_hint">
+                <li><i class="fa fa-hand-o-right" aria-hidden="true"></i> Gợi ý  1: Hệ thống làm mát tự động khi bạn không thực hiện chế độ hẹn giờ</li>
+                <li><i class="fa fa-hand-o-right" aria-hidden="true"></i> Gợi ý 2: Sau khi set up thời gian, hệ thống sẽ đặt chế độ hẹn giờ, tiến hành làm mát, khi này, chế độ tự động sẽ tạm ngắt</li>
+                <li><i class="fa fa-hand-o-right" aria-hidden="true"></i> Gợi ý 3: Hệ thống có những gợi ý về nhiệt độ gửi tới bạn thông qua đồ thị và thông báo.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div id="id01" class="modal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close"
+            title="Close Modal">×</span>
+          <form class="modal-content">
+            <div class="container">
+              <h1>Dừng thiết bị</h1>
+              <p>Nhấn Stop để xác nhận, Cancel để hủy</p>
+
+              <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                  class="cancelbtn">Cancel</button>
+                <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                  class="deletebtn">Delete</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="id02" class="modal2" style="display: none;">
+          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+          <form class="modal-content2">
+            <div class="container">
+              <h1>Dừng thiết bị</h1>
+              <span class="bell fa fa-bell"></span>
+              <p>Thiết bị của bạn đang quá nóng <br> Hệ thống  sẽ tự động làm mát sau 10s</p>
+            </div>
+          </form>
+        </div>
+
+        <!-- FOOTER -->
+        <div id="footer">
+          <div class="indent">
+            <div class="fright">End.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/solution.js" type="text/javascript"></script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <title>IT Technologies | User</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="styles/user.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/cufon-yui.js" type="text/javascript"></script>
+  <script src="js/cufon-replace.js" type="text/javascript"></script>
+  <script src="js/Myriad_Pro_300.font.js" type="text/javascript"></script>
+
+</head>
+
+<body id="page4">
+  <div id="background"></div>
+  <div class="tail-top">
+    <div class="tail-bottom">
+      <div class="body-bg">
+        <!-- HEADER -->
+        <div id="header">
+          <div class="extra"><img src="images/header-img.jpg" alt="" /></div>
+          <div class="row-1">
+            <div class="fleft"><a href="#"><img src="images/logo.png" alt="" /></a></div>
+          </div>
+          <div class="row-2">
+            <ul>
+              <li class="m1"><a href="index.html">Home</a></li>
+              <li class="m2"><a href="temprature.html">Temprature</a></li>
+              <li class="m3"><a href="humidity.html">Humidity</a></li>
+              <li class="m4"><a href="solution.html">Solution</a></li>
+              <li class="m5"><a href="user.html" class="active">User</a></li>
+              <li class="m6"><a href="contact.html">About Us</a></li>
+            </ul>
+          </div>
+          <div class="row-3">
+            <h3 style="font-size: 80px; font-weight: 600; color: white;"><span>The best cooling solution</span></h3>
+            <form action="#" method="post" id="search-form">
+              <fieldset>
+                <div><span>
+                    <input type="text" value="Enter keyword here"
+                      onfocus="if(this.value=='Enter keyword here'){this.value=''}"
+                      onblur="if(this.value==''){this.value='Enter keyword here'}" />
+                  </span><a href="#"><img src="images/button.gif" alt="" /></a></div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <!-- CONTENT -->
+        <div class="container content">
+          <div class="row">
+
+            <div class="info_user col-lg-9">
+              <div class="avatar col-lg-4">
+                <img
+                  src="https://guantanamocity.org/wp-content/uploads/2020/12/huong-dan-tao-anh-dai-dien-hoat-hinh-tren-facebook-cach-tao-avatar-facebook-1.png"
+                  alt="">
+              </div>
+              <div class="info_list col-lg-7">
+                <ul id="list_info">
+                  <li id="name">User name: <p id="name_user">FullName</p>
+                  </li>
+                  <li id="device">Number of equipment: <p id="device_count">3</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="list_device">
+              <div class="backgr"
+                style="background-image: url(images/background_item.jpg);height: 100%;width: 100%;position: absolute;border-radius: 20px;opacity: 0.1;">
+              </div>
+              <p style="font-size: 40px;font-weight: 800; text-align: center; position: relative; font-family: revert;">
+                Danh sach thiet bi</p>
+              <ul id="list_devices">
+                <p>danh sach thiet bi trong,ban chua them thiet bi nao</p>
+              </ul>
+              <div id="but_form" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add Device</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Thong tin thiet bi</p>
+            <div class="modalContentItem">
+              <p>id thiet bi :</p> <strong>3</strong>
+            </div>
+            <div class="modalContentItem">
+              <p>nhiet do: </p> <strong>30C</strong>
+            </div>
+            <div class="modalContentItem">
+              <p>do am:</p><strong>40</strong>
+            </div>
+            <div class="modalContentItem">
+              <p>vi tri:</p> <strong>tang 2</strong>
+            </div>
+          </div>
+        </div>
+
+        <div id="form" style="z-index: 10;" class="form">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <form action="" id="add_form">
+              <strong>Them thiet bi</strong>
+              <ul>
+                <li>
+                  <p>ten thiet bi:</p><input id="device_name" type="text" placeholder="ten">
+                </li>
+                <li>
+                  <p>vi tri:</p><input id="device_location" type="text" placeholder="vi tri">
+                </li>
+              </ul>
+              <input class="btn btn-primary" type="button" id="but_create" value="Create">
+            </form>
+          </div>
+        </div>
+
+
+
+
+
+        <!-- FOOTER -->
+        <div id="footer">
+          <div class="indent">
+            <div class="fright">End.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript"> Cufon.now();</script>
+  <script src="js/user.js" type="text/javascript"></script>
+</body>
+
+</html>

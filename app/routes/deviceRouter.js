@@ -30,29 +30,4 @@ deviceRouter.put("/editDevice/:id", async (req, res) => {
     }
 });
 
-//state is edited by user - manual
-deviceRouter.put("/editByUser/:id", async (req, res) => {
-    try {
-        const device = await Device.findById(req.params.id);
-        if (device.creatorId === req.body.userId) {
-            try {
-                for (var i = 0; i < device.actionHistory.length; i++) {
-                    device.actionHistory[i].action = req.body.action;
-                }
-                await Device.findByIdAndUpdate(req.params.id, {
-                    $set: device
-                });
-                res.status(200).json(device);
-            } catch (error) {
-                res.status(500).json(error);
-            }
-        } else {
-            res.status(404).json("you cant modify here !!!");
-        }
-
-    } catch (error) {
-        res.status(500).json(error);
-    }
-})
-
 module.exports = deviceRouter;

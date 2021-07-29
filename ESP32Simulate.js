@@ -19,8 +19,8 @@ mqttClient.on('connect', () => {
 const interval = setInterval(every5SecondsFunction, 5000);
 function every5SecondsFunction() {
     // get temperature and humidity
-    temperature =( 27 + 3 * Math.random()).toFixed(3);
-    humidity = (100 * Math.random()).toFixed(3);
+    temperature =( 25 + 13 * Math.random()).toFixed(1);
+    humidity = (100 * Math.random()).toFixed(1);
     // clear state change
     isActorStateChange = false;
     if (temperature > 28 || humidity > 60) {
@@ -47,9 +47,8 @@ function every5SecondsFunction() {
 }
 
 mqttClient.on('message', (subscribeTopic, payload) => {
-    console.log(String(payload))
-    // var jsonMessage = JSON.parse(payload.toString());
-    // actorState = jsonMessage.actorState;
-    // keepActorStateTo = new Date(parseInt(jsonMessage.keepActorStateTo)).getTime();
-    // console.log("Actor " + actoreState + " till " + (new Date(keepActorStateTo) + " by user " + jsonMessage.userId));
+    var jsonMessage = JSON.parse(payload.toString());
+    actorState = jsonMessage.actorState;
+    keepActorStateTo = new Date(parseInt(jsonMessage.keepActorStateTo)).getTime();
+    console.log("Actor " + actoreState + " till " + (new Date(keepActorStateTo) + " by user " + jsonMessage.userId));
 })

@@ -19,11 +19,18 @@ const DeviceSchema = mongoose.Schema({
     }],
     actionHistory: [{
         _id: false,
-        username: String,
-        userId: mongoose.Types.ObjectId,
+        from: {
+            type: String,
+            enum: ["user", "device"]
+        },
         action: {
             type: String,
-            default: "OFF"
+            default: "OFF",
+            enum: ["ON", "OFF"]
+        },
+        keepTo: { // 
+            type: Date,
+            default: Date.now()
         }
     }]
 })
@@ -38,7 +45,11 @@ DeviceSchema.statics = {
                 creatorId: data.userId,
                 location: data.location,
                 stateHistory: [],
-                actionHistory: []
+                actionHistory: [{
+                    from: "user",
+                    action: "ON",
+                    keepTo: Date.now()
+                }]
             })
             await device.save();
             return device;

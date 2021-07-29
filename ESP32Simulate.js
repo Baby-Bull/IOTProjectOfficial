@@ -1,13 +1,13 @@
+const { json } = require('express');
 const mqtt = require('mqtt');
 const mqttClient = mqtt.connect('tcp://broker.hivemq.com');
 const publishTopic = "nhom24Sub";
 const subscribeTopic = "nhom24Pub";
-const deviceId = '60c77855fd044a3a38ce88e9';
+const deviceId = '61026f45259f4a0f48869e4b';
 var temperature = 0;
 var humidity = 0;
 var actorState = 'ON';
-var isActorStateChange = false;
-var keepActorStateTo = 0;
+var actorStateRequest = 'ON';
 var location = '';
 
 mqttClient.on('connect', () => {
@@ -19,37 +19,31 @@ mqttClient.on('connect', () => {
 const interval = setInterval(every5SecondsFunction, 5000);
 function every5SecondsFunction() {
     // get temperature and humidity
-    temperature =( 27 + 3 * Math.random()).toFixed(3);
-    humidity = (100 * Math.random()).toFixed(3);
+    temperature = (30 + 10 * Math.random()).toFixed(1);
+    humidity = (100 * Math.random()).toFixed(1);
     // clear state change
-    isActorStateChange = false;
-    if (temperature > 28 || humidity > 60) {
-        if (Date.now() > keepActorStateTo) {
-            actorState = 'ON';
-            isActorStateChange = true;
-            console.log("Auto start actor");
-        }
+    if (temperature > 35) {
+        actorStateRequest = 'ON';
+        console.log("Request turn on!");
     } else {
-        if (Date.now() > keepActorStateTo) {
-            actorState = 'OFF';
-            isActorStateChange = true;
-            console.log("Auto stop actor");
-        }
+        actorStateRequest = 'OFF';
+        console.log("Request turn off!");
     }
     mqttClient.publish(publishTopic, JSON.stringify({
         deviceId: deviceId,
         temperature: temperature,
         humidity: humidity,
         actorState: actorState,
-        isActorStateChange: isActorStateChange,
+        actorStateRequest: actorStateRequest,
         location: location
     }))
 }
 
 mqttClient.on('message', (subscribeTopic, payload) => {
-    console.log(String(payload))
-    // var jsonMessage = JSON.parse(payload.toString());
-    // actorState = jsonMessage.actorState;
-    // keepActorStateTo = new Date(parseInt(jsonMessage.keepActorStateTo)).getTime();
-    // console.log("Actor " + actoreState + " till " + (new Date(keepActorStateTo) + " by user " + jsonMessage.userId));
+    var jsonMessage = JSON.parse(payload.toString());
+    if (jsonMessage.actorState && jsonMessage.keepTo && jsonMessage.from) {
+        actorState = jsonMessage.actorState;
+        keepTo = jsonMessage.keepTo;
+        console.log("Actor " + actorState + " till " + (new Date(keepTo) + " by " + jsonMessage.from));
+    }
 })

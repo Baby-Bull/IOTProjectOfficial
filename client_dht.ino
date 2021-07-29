@@ -46,8 +46,9 @@ void sendRequest(float temperature, float humidity){
   if(WiFi.status() == WL_CONNECTED){
   
       HTTPClient http;
-      if (temperature > 35) char 
-      http.begin("http://192.168.1.16:3000/device/editDevice/"+String(deviceId)+"?temperature="+String(temperature)+"&humidity="+String(humidity));
+      if (temperature > 35) char *actorStateRequest = "ON";
+      else char *actorStateRequest = "OFF";
+      http.begin("http://192.168.1.16:3000/device/editDevice/"+String(deviceId)+"?temperature="+String(temperature)+"&humidity="+String(humidity)+"&actorStateRequest="+actorStateRequest);
       //http.addHeader("Content-Type", "application/json");
       
       http.addHeader("Content-Type", "text/plain");
@@ -58,23 +59,32 @@ void sendRequest(float temperature, float humidity){
       if(httpResponseCode == 200){
           Serial.println("Da gui du lieu len server \n");
           String payload = http.getString();
-          String state1 = splitString(payload,",",1);
-          String state2 = splitString(payload,",",2);
+          String state = splitString(payload,",",1);
+          String from = splitString(payload,",",2);
 
-          Serial.println(state1);
-          Serial.println(state2);
-          if(state2 == "ON"){
-            Serial.println("user on");
-            digitalWrite(led,HIGH);  
-          }else{
-            if(state1 == "ON"){
-              Serial.println("user off, device on");
-              digitalWrite(led,HIGH);  
-            }else{
-              Serial.println("both device and user off");
-              digitalWrite(led,LOW);  
-            }
+          Serial.println(state);
+          Serial.println(from);
+          if (state == "ON") {
+            Serial.print("ON from ");
+            Serial.println(from);
+            digitalWrite(led,HIGH);
+          } else {
+            Serial.print("OFF from ");
+            Serial.println(from);
+            digitalWrite(led,LOW);
           }
+          // if(state2 == "ON"){
+          //   Serial.println("user on");
+          //   digitalWrite(led,HIGH);  
+          // }else{
+          //   if(state1 == "ON"){
+          //     Serial.println("user off, device on");
+          //     digitalWrite(led,HIGH);  
+          //   }else{
+          //     Serial.println("both device and user off");
+          //     digitalWrite(led,LOW);  
+          //   }
+          // }
           
       }else{
         Serial.println("Khong the gui data len server \n");    

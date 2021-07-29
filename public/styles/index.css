@@ -1,0 +1,43 @@
+ul.logout{
+    display: flex;
+    padding: 0;
+    list-style: none;
+    background: #a5c8dc;
+    float: right;
+    border-radius: 10px;
+    border: 1px white solid;
+}
+ul.logout li{
+    display: inline-block;
+    position: relative;
+    line-height: 21px;
+    text-align: right;
+    color: white;
+}
+ul.logout li a{
+    display: block;
+    padding: 8px 25px;
+    text-decoration: none;
+    color: white;
+}
+ul.logout li a:hover{
+    border-radius: 10px;
+    border: 1px white solid;
+    color: #fff;
+    background: #939393;
+}
+ul.logout li ul.dropdown{
+     /* Set width of the dropdown */
+     background: #f2f2f2;
+     display: none;
+     position: absolute;
+     z-index: 999;
+     left: 0;
+     width: -webkit-fill-available;
+}
+ul.logout li:hover ul.dropdown{
+    display: block; /* Display the dropdown */
+}
+ul.logout li ul.dropdown li{
+    display: block;
+}

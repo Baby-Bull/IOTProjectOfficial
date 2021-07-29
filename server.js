@@ -22,11 +22,6 @@ server.use('/device', deviceRouter);
 server.use(express.static('public'));
 
 const http = require('http').createServer(server);
-const io = require('socket.io')(http, {
-    cors: {
-        origin: true
-    }
-});
 
 mqttClient.on('connect', () => {
     mqttClient.subscribe(subscribeTopic, (err) => {
@@ -38,59 +33,55 @@ mqttClient.on('message', async (subscribeTopic, payload) => {
     try {
         var jsonMessage = JSON.parse(payload.toString());
         console.log("Update from device: " + jsonMessage.deviceId);
-        let device = await Device.findById(jsonMessage.deviceId);
-        if (device.connectState == 'pending') {
-            device.connectState = 'active';
-            await User.findOneAndUpdate({ _id: device.creatorId, "devices.connectState": "pending" }, {
-                $set: {
-                    "devices.$.connectState": "active"
-                }
+        const device = await Device.findById(jsonMessage.deviceId);
+        if (device) {
+            if (device.connectState == 'pending') {
+                device.connectState = 'active';
+                await User.findOneAndUpdate({ _id: device.creatorId, "devices.connectState": "pending" }, {
+                    $set: {
+                        "devices.$.connectState": "active"
+                    }
+                })
+            }
+
+            if (device.stateHistory.length >= 50) {
+                device.stateHistory.shift();
+            }
+
+            // User time limit outdate
+            if (device.actionHistory[device.actionHistory.length - 1].keepTo < Date.now()) {
+                device.stateHistory.push({
+                    temperature: jsonMessage.temperature,
+                    humidity: jsonMessage.humidity,
+                    actorState: jsonMessage.actorStateRequest
+                })
+                if (device.actionHistory.length > 50) device.actionHistory.shift();
+                device.actionHistory.push({
+                    from: "device",
+                    action: device.stateHistory[device.stateHistory.length - 1].actorState,
+                    keepTo: Date.now()
+                })
+            } else {
+                device.stateHistory.push({
+                    temperature: jsonMessage.temperature,
+                    humidity: jsonMessage.humidity,
+                    actorState: device.actionHistory[device.actionHistory.length - 1].action
+                })
+            }
+
+            mqttClient.publish(publishTopic, JSON.stringify({
+                actorState: device.actionHistory[device.actionHistory.length - 1].action,
+                keepTo: device.actionHistory[device.actionHistory.length - 1].keepTo,
+                from: device.actionHistory[device.actionHistory.length - 1].from
+            }))
+
+            await Device.findByIdAndUpdate(jsonMessage.deviceId, {
+                $set: device
             })
         }
-        if (device.stateHistory.length >= 50) device.stateHistory.shift();
-        device.stateHistory.push({
-            temperature: jsonMessage.temperature,
-            humidity: jsonMessage.humidity,
-            actorState: jsonMessage.actorState
-        });
-        if (jsonMessage.isActorStateChange) {
-            if (device.actionHistory.length >= 50) device.actionHistory.shift();
-            device.actionHistory.push({
-                userId: jsonMessage.deviceId,
-                username: device.deviceName,
-                action: jsonMessage.actorState
-            })
-        }
-        device.save();
-        io.to('' + device._id).emit('deviceUpdate', jsonMessage);
     } catch (error) {
         console.log(error);
     }
-})
-
-io.on('connection', (socket) => {
-    console.log('New connection from ' + socket.id);
-    socket.on('init', async (userId) => {
-        let user = await User.findById(userId);
-        user.devices.forEach((device) => {
-            socket.join('' + device.deviceId);
-        })
-    })
-    socket.on('switch', async (data) => {
-        mqtt.publish(publishTopic, JSON.stringify({
-            actorState: data.actorState,
-            keepActorStateTo: data.keepActorStateTo,
-            userId: data.userId
-        }))
-        let device = await Device.findById(data.deviceId);
-        if (device.actionHistory.length >= 50) device.actionHistory.shift();
-        device.actionHistory.push({
-            userId: data.userId,
-            username: data.username,
-            action: data.actorState
-        })
-        await device.save();
-    })
 })
 
 http.mqttClient = mqttClient;

@@ -251,7 +251,7 @@ Highcharts.chart('pie_chart', {
             console.log(point.y.toFixed(3));
             document.getElementById("current_temp").innerHTML = point.y + " C";
           })
-      }, 2000);
+      }, 1000);
     }
   });
 

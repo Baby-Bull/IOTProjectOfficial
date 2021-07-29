@@ -23,8 +23,10 @@ login.addEventListener("submit", e => {
 				alert(data.error);
 			} else {
 				document.cookie = "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-				alert("Hello " + data.username + " !");
 				document.cookie = ("userId=" + data.userId);
+				document.cookie = ("username=" + data.username);
+				document.cookie = ("deviceId="+"");
+				alert("Hello " + data.username + " !");
 				location.href = "http://localhost:3000/index.html"
 			}
 		})

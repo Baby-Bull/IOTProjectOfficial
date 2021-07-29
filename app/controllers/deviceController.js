@@ -31,7 +31,7 @@ module.exports = {
                     error: "Unknown user!"
                 })
             } else {
-                if (user.device != null && user.devices[user.devices.length - 1].connectState == 'pending') {
+                if (user.devices != null && user.devices[user.devices.length - 1].connectState == 'pending') {
                     res.send({
                         success: false,
                         error: "Device is pending",

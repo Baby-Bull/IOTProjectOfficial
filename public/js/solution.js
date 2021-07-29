@@ -70,7 +70,7 @@ document.getElementById("formSetTime").addEventListener("submit", (e) => {
       var requestUser1 = {
         method: 'PUT',
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ userId: getCookie("userId"), action: "ON" })
+        body: JSON.stringify({ userId: getCookie("userId"), action: "ON", keepTo: target_date })
       };
       fetch("http://localhost:3000/device/editByUser/" + getCookie("deviceId"), requestUser1)
         .then((response1) => {
@@ -78,7 +78,7 @@ document.getElementById("formSetTime").addEventListener("submit", (e) => {
         })
         .then((data) => {
           console.log(data);
-        })
+        }) //stopp
 
       setTimeout(() => {
         var requestUser2 = {

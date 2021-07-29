@@ -16,15 +16,6 @@ const DeviceSchema = mongoose.Schema({
         temperature: Number,
         humidity: Number,
         actorState: String,
-    }],
-    actionHistory: [{
-        _id: false,
-        username: String,
-        userId: mongoose.Types.ObjectId,
-        action: {
-            type: String,
-            default: "OFF"
-        }
     }]
 })
 
@@ -37,8 +28,7 @@ DeviceSchema.statics = {
                 connectState: 'pending',
                 creatorId: data.userId,
                 location: data.location,
-                stateHistory: [],
-                actionHistory: []
+                stateHistory: []
             })
             await device.save();
             return device;

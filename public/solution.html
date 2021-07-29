@@ -81,7 +81,8 @@
               padding: 30px 30px 0px 0px;
               border-radius: 5px;
               border: 3px #ff4700 solid;
-              box-shadow: 0px 7px 20px 10px black;">
+              box-shadow: 0px 7px 20px 10px black;
+              height: 300px;">
                 <div class="manual">
                   <strong style=" 
                   display: flex;
@@ -105,7 +106,7 @@
                   font-size: 20px;
                   width: 60%;
                   margin: 50px 80px 0px 30px;"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Bật thiết bị làm mát </strong>
-                  <button id="but_stop" onclick="document.getElementById('id01').style.display='block'"><i style="margin-right: 10px;" class="fa fa-check-circle" aria-hidden="true"></i>Start</button>
+                  <button id="but_start" onclick="document.getElementById('id01').style.display='block'"><i style="margin-right: 10px;" class="fa fa-check-circle" aria-hidden="true"></i>Start</button>
                 </div>
               </div>
             </div>
@@ -121,32 +122,53 @@
         </div>
 
 
-
+        <!-- modal xac nhan bat thiet bi lam mat -->
         <div id="id01" class="modal">
           <span onclick="document.getElementById('id01').style.display='none'" class="close"
             title="Close Modal">×</span>
           <form class="modal-content">
             <div class="container">
-              <h1>Dừng thiết bị</h1>
-              <p>Nhấn Stop để xác nhận, Cancel để hủy</p>
+              <h1>Xác nhận bật thiết bị mát</h1>
+              <p>Nhấn Start để xác nhận, Cancel để hủy</p>
 
               <div class="clearfix">
                 <button type="button" onclick="document.getElementById('id01').style.display='none'"
                   class="cancelbtn">Cancel</button>
-                <button type="button" onclick="document.getElementById('id01').style.display='none'"
-                  class="deletebtn">Delete</button>
+                <button id="startSystemButton" type="button" onclick="document.getElementById('id01').style.display='none'"
+                  class="deletebtn">Start</button>
               </div>
             </div>
           </form>
         </div>
 
+        <!-- modal canh bao thiet bi qua nhiet -->
         <div id="id02" class="modal2" style="display: none;">
           <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
           <form class="modal-content2">
             <div class="container">
-              <h1>Dừng thiết bị</h1>
+              <h1>Cảnh báo từ hệ thống</h1>
               <span class="bell fa fa-bell"></span>
-              <p>Thiết bị của bạn đang quá nóng <br> Hệ thống  sẽ tự động làm mát sau 10s</p>
+              <p>Thiết bị của bạn đang quá nóng <br> Hệ thống đang trong quá trình làm mát về nhiệt độ ổn định </p>
+            </div>
+          </form>
+        </div>
+
+        <!-- modal hien thi trang thai lam mat -->
+        <div id="id03" class="modal3" style="display: none;">
+          <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span>
+          <form class="modal-content3">
+            <div class="container">
+              <h1>Đang trong quá trình làm mát</h1>
+              <i style="font-size: 150px; padding: 20px;" class="fa fa-snowflake-o" aria-hidden="true"></i>
+              <p>Bạn đã bật chế độ hẹn giờ làm mát <br> Hệ thống  sẽ tự động tắt sau</p>
+              <div id="countdown">
+                <div id='countTiles'></div>
+                <div class="countLabels">
+                  <li>Mins</li>
+                  <li>Secs</li>
+                  <li>MiniSecs</li>
+                </div>
+              </div>
             </div>
           </form>
         </div>

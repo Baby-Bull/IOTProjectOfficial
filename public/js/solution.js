@@ -13,34 +13,92 @@ function getCookie(cname) {
   return "";
 }
 
-var timeToStop;
-document.getElementById("formSetTime").addEventListener("submit", (e) => {
-  e.preventDefault();
-  var temp = document.getElementById("timeToStop").value;
-  timeToStop = (temp.slice(-1) === "s") ? temp.slice(0, -1) : temp.slice(0, -1) * 60;
-
-})
-
 var requestOptions = {
   method: 'POST',
   headers: { "content-type": "application/json" },
   body: JSON.stringify({ deviceId: getCookie("deviceId") })
 };
 
-fetch("http://localhost:3000/device/getDeviceInfo", requestOptions)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data)=>{
-    var modalDanger = document.getElementById('id02');
-    console.log(data.device.stateHistory[49].temperature);
-    if(data.device.stateHistory[49].temperature > 35){
-      modalDanger.style.display = "block";
-    }else{
-      modalDanger.style.display = "none";
-    }
-  })
+setInterval(() => {
+  fetch("http://localhost:3000/device/getDeviceInfo", requestOptions)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      var modalDanger = document.getElementById('id02');
+      if (data.device.stateHistory[49].temperature > 35) {
+        modalDanger.style.display = "block";
+      } else {
+        modalDanger.style.display = "none";
+      }
+    })
+}, 1000);
 
+
+var timeToStop = 0;
+document.getElementById("formSetTime").addEventListener("submit", (e) => {
+  e.preventDefault();
+  var temp = document.getElementById("timeToStop").value;
+  timeToStop = (temp.slice(-1) === "s") ? temp.slice(0, -1) : temp.slice(0, -1) * 60;
+
+  if (timeToStop != 0) {
+    console.log(timeToStop);
+    document.getElementById("but_start").style.display = "block";
+    document.getElementById("startSystemButton").addEventListener("click", () => {
+      document.getElementById("id03").style.display = "block";
+      var target_date = new Date().getTime() + timeToStop * 1000;
+      var miniseconds, minutes, seconds; // variables for time units
+      var countdown = document.getElementById("countTiles"); // get tag element
+      getCountdown();
+      setInterval(function () { getCountdown(); }, 1);
+
+      function getCountdown() {
+        var current_date = new Date().getTime();
+        var miniseconds_left = (target_date - current_date) / 1;
+
+        minutes = pad(parseInt(miniseconds_left / 60000));
+        miniseconds_left = miniseconds_left % 60000;
+
+        seconds = pad(parseInt(miniseconds_left / 1000));
+        miniseconds = miniseconds_left % 1000
+
+        countdown.innerHTML = "<span>" + minutes + "</span><span>" + seconds + "</span><span>" + miniseconds + "</span>";
+      }
+      function pad(n) {
+        return (n < 1000 ? '0' : '') + n;
+      }
+      var requestUser1 = {
+        method: 'PUT',
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ userId: getCookie("userId"), action: "ON" })
+      };
+      fetch("http://localhost:3000/device/editByUser/" + getCookie("deviceId"), requestUser1)
+        .then((response1) => {
+          return response1.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+
+      setTimeout(() => {
+        var requestUser2 = {
+          method: 'PUT',
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ userId: getCookie("userId"), action: "OFF" })
+        };
+        fetch("http://localhost:3000/device/editByUser/" + getCookie("deviceId"), requestUser2)
+          .then((response2) => {
+            return response2.json();
+          })
+          .then((data) => {
+            console.log(data);
+          })
+        document.getElementById("id03").style.display = "none";
+        location.href = "http://localhost:3000/solution.html"
+      }, timeToStop * 1000);
+    })
+  }
+})
 
 
 

@@ -46,7 +46,7 @@ void sendRequest(float temperature, float humidity){
   if(WiFi.status() == WL_CONNECTED){
   
       HTTPClient http;
-      
+      if (temperature > 35) char 
       http.begin("http://192.168.1.16:3000/device/editDevice/"+String(deviceId)+"?temperature="+String(temperature)+"&humidity="+String(humidity));
       //http.addHeader("Content-Type", "application/json");
       

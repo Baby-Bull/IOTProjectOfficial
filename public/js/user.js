@@ -73,10 +73,6 @@ fetch("http://localhost:3000/user/getUserInfo", requestOptions)
   })
 
 
-
-
-
-
 var modal = document.getElementById("myModal");
 var form2 = document.getElementById("form");
 var span = document.getElementsByClassName("close")[0];
